@@ -33,12 +33,6 @@ from plugins.webcode import bot_run
 from os import environ
 from aiohttp import web as webserver
 
-PORT_CODE = environ.get("PORT", "8080")
-
-
-
-
-
 class Bot(Client):
 
     def __init__(self):
@@ -47,9 +41,9 @@ class Bot(Client):
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            workers=50,
+            workers=200,
             plugins={"root": "plugins"},
-            sleep_threshold=5,
+            sleep_threshold=20,
         )
 
     async def start(self):
@@ -87,8 +81,7 @@ class Bot(Client):
         client = webserver.AppRunner(await bot_run())
         await client.setup()
         bind_address = "0.0.0.0"
-        await webserver.TCPSite(client, bind_address,
-        PORT_CODE).start()
+        await webserver.TCPSite(client, bind_address, 8080).start()
 
     async def stop(self, *args):
         await super().stop()
