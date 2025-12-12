@@ -10,4 +10,3 @@ RUN mkdir /KuttuBot
 WORKDIR /KuttuBot
 COPY start.sh /start.sh
 CMD ["python3", "bot.py"]
-
